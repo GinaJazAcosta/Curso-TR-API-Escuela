@@ -1,0 +1,116 @@
+package com.gina.escuela.entities;
+
+import com.gina.escuela.utils.StringCustomUtils;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Table(name = "ALUMNOS")
+public class Alumno {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_ALUMNO")
+    private Long id;
+
+    @Column(name = "NOMBRE", length = 50, nullable = false)
+    private String nombre;
+
+    @Column(name = "APELLIDO_PATERNO", length = 50, nullable = false)
+    private String apellidoPaterno;
+
+    @Column(name = "APELLIDO_MATERNO", length = 50, nullable = false)
+    private String apellidoMaterno;
+
+    @Column(name = "EMAIL", length = 100, nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "MATRICULA", length = 10, nullable = false, unique = true)
+    private String matricula;
+
+    @Builder.Default
+    @Column(name = "FECHA_INGRESO")
+    private LocalDate fechaIngreso = LocalDate.now();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "alumno")
+    private List<Inscripcion> inscripciones = new ArrayList<>();
+
+    public boolean cambioEnDatos(String nombre, String apellidoPaterno, String apellidoMaterno){
+        return !this.nombre.equals(nombre) ||
+                !this.apellidoPaterno.equals(apellidoPaterno) ||
+                !this.apellidoMaterno.equals(apellidoMaterno);
+    }
+
+    public void actualizar(String nombre, String apellidoPaterno, String apellidoMaterno, String email, String matricula) {
+        validarDatos(nombre, apellidoPaterno, apellidoMaterno);
+        asignarDatosAcademicos(email, matricula);
+        this.nombre = nombre.trim();
+        this.apellidoPaterno = apellidoPaterno.trim();
+        this.apellidoMaterno = apellidoMaterno.trim();
+    }
+
+    private void validarDatos(String nombre, String apellidoPaterno, String apellidoMaterno) {
+        StringCustomUtils.ValidarTamanio(nombre, 4,50,
+                "El nombre es requerido y debe tener entre 4 y 50 caracteres");
+        StringCustomUtils.ValidarTamanio(apellidoPaterno, 4,50,
+                "El apellido paterno es requerido y debe tener entre 4 y 50 caracteres");
+        StringCustomUtils.ValidarTamanio(apellidoMaterno, 4,50,
+                "El apellido materno es requerido y debe tener entre 4 y 50 caracteres");
+        /*
+
+        */
+    }
+
+    public String getNombreCompleto() {
+        return String.join(" ",
+                nombre,
+                apellidoPaterno,
+                apellidoMaterno);
+    }
+
+    public BigDecimal calcularPromemedio (){
+        List<BigDecimal> calificaciones = inscripciones.stream()
+                .map(Inscripcion::getCalificacion)
+                .filter(Objects::nonNull)
+                .map(Calificacion::getCalificacion)
+                .filter(Objects::nonNull)
+                .toList();
+        if (calificaciones.isEmpty())
+            return BigDecimal.ZERO;
+
+        BigDecimal suma = calificaciones.stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal promedio = suma.divide(
+                BigDecimal.valueOf(calificaciones.size()),
+                2,
+                RoundingMode.HALF_UP
+        );
+        return promedio;
+    }
+
+    public void asignarDatosAcademicos(String email, String matricula){
+        StringCustomUtils.ValidarTamanio(email, 5,100,
+                "El correo es requerido y debe tener entre 5 y 100 caracteres");
+        StringCustomUtils.ValidarTamanio(matricula, 10,10,
+                "La matricula es requerida y debe tener 10 caracteres");
+        this.email = email.trim().toLowerCase();
+        this.matricula = matricula.trim();
+    }
+}
