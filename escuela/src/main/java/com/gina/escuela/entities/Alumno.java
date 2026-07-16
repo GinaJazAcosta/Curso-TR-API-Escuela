@@ -72,9 +72,6 @@ public class Alumno {
                 "El apellido paterno es requerido y debe tener entre 4 y 50 caracteres");
         StringCustomUtils.ValidarTamanio(apellidoMaterno, 4,50,
                 "El apellido materno es requerido y debe tener entre 4 y 50 caracteres");
-        /*
-
-        */
     }
 
     public String getNombreCompleto() {

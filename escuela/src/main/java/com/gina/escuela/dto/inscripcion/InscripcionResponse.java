@@ -1,14 +1,15 @@
 package com.gina.escuela.dto.inscripcion;
 
-import com.gina.escuela.dto.alumno.AlumnoResponse;
-import com.gina.escuela.dto.datos.DatosCalificaciones;
+import com.gina.escuela.dto.datos.DatosAlumno;
+import com.gina.escuela.dto.datos.DatosGrupo;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public record InscripcionResponse(
         Long id,
-        AlumnoResponse alumno,
-        String telefono,
-        List<DatosCalificaciones> calificaciones
+        DatosAlumno alumno,
+        DatosGrupo grupo,
+        BigDecimal calificacion,
+        String fechaInscripcion
 ) {
 }
