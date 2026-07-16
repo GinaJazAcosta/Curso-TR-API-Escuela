@@ -3,15 +3,12 @@ package com.gina.escuela.mappers;
 import com.gina.escuela.dto.alumno.AlumnoRequest;
 import com.gina.escuela.dto.alumno.AlumnoResponse;
 import com.gina.escuela.dto.datos.DatosCalificaciones;
-import com.gina.escuela.dto.datos.DatosCurso;
 import com.gina.escuela.entities.Alumno;
 import com.gina.escuela.utils.StringCustomUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor

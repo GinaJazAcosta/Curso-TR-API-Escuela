@@ -68,5 +68,10 @@ public class Maestro {
                 "El nombre es requerido y debe tener 10 caracteres");
         StringCustomUtils.validarTelefono(telefono);
     }
-
+    public String getNombreCompleto() {
+        return String.join(" ",
+                nombre,
+                apellidoPaterno,
+                apellidoMaterno);
+    }
 }

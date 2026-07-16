@@ -11,4 +11,5 @@ public interface MaestroRepository extends JpaRepository<Maestro, Long> {
     boolean existsByTelefono(String telefono);
     boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
     boolean existsByTelefonoAndIdNot(String telefono, Long id);
+
 }

@@ -62,5 +62,8 @@ public class Horario {
                     "La hora de fin debe ser mayor que la hora de inicio"
             );
     }
-
+    public void asignarDatos(Grupo grupo, DiaSemana diaSemana){
+        this.grupo = grupo;
+        this.diaSemana = diaSemana;
+    }
 }

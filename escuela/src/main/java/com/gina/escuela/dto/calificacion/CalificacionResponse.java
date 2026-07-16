@@ -1,13 +1,12 @@
 package com.gina.escuela.dto.calificacion;
 
-import com.gina.escuela.dto.inscripcion.InscripcionResponse;
-
-import java.util.List;
+import com.gina.escuela.dto.datos.DatosInscripcion;
+import java.math.BigDecimal;
 
 public record CalificacionResponse(
         Long id,
-        InscripcionResponse inscripcion,
-        Integer calificaion,
-        String fecha //LocalDate
+        DatosInscripcion inscripcion,
+        BigDecimal calificaion,
+        String fechaRegistro
 ) {
 }

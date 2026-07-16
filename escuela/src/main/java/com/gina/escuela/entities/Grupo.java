@@ -72,4 +72,9 @@ public class Grupo {
 
         StringCustomUtils.ValidarTamanio(periodo, 1,20, "El periodo es requerido y debe tener entre 1 y 20 caracteres");
     }
+    public void asignarDatos(Curso curso, Maestro maestro, Aula aula){
+        this.curso = curso;
+        this.maestro = maestro;
+        this.aula = aula;
+    }
 }
