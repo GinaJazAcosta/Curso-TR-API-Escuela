@@ -63,15 +63,22 @@ public class GrupoServiceImpl implements GrupoService{
     public GrupoResponse actualizar(GrupoRequest request, Long id) {
         log.info("Validando datos del grupo para actualizar");
         Grupo grupo = obtenerGrupo(id);
+        //Agregar validacion de que si hubo cambios ************************************************************
+        if (grupo.cambioEnDatos(request.idCurso(), request.idMaestro(), request.idAula(), request.periodo())){
+            log.info("Si esta entrando en el if");
+            throw new IllegalArgumentException("No hay cambios en los datos");
+        }
+
         Curso curso = ServiceUtils.obtenerEntidadOException(cursoRepository, request.idCurso(), Curso.class);
         Maestro maestro = ServiceUtils.obtenerEntidadOException(maestroRepository, request.idMaestro(), Maestro.class);
         Aula aula = ServiceUtils.obtenerEntidadOException(aulaRepository, request.idAula(), Aula.class);
+
         if (existeGrupoExceptoId(request.idCurso(), request.idMaestro(), request.idAula(), request.periodo(), id))
             throw new IllegalArgumentException("No se puede actualizar el grupo ya que existe otro grupo con los mismos parámetros");
 
         log.info("Actualizando grupo con id: {}", id);
         grupo.actualizar(curso, maestro, aula, request.periodo());
-        log.info("Datos académicos generados para el Alumno con id: {}", id);
+        log.info("Datos académicos generados para el grupo con id: {}", id);
         grupoRepository.save(grupo);
 
         log.info("Grupo con id: {} actualizado con éxito", id);

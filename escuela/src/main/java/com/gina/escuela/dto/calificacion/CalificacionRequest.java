@@ -2,6 +2,8 @@ package com.gina.escuela.dto.calificacion;
 
 import jakarta.validation.constraints.*;
 
+import java.math.BigDecimal;
+
 public record CalificacionRequest(
         /*
         @NotBlank(message="El nombre es requerido")
@@ -16,8 +18,8 @@ public record CalificacionRequest(
         Long idInscripcion,
 
         @NotNull(message = "La calificación es requerida")
-        @Min(value = 1, message = "Los créditos mínimos son 1")
-        @Max(value = 2, message = "Los créditos máximos son 10")
-        Integer calificacion
+        @DecimalMin(value = "0.0", inclusive = true, message = "Los créditos mínimos son 0.0")
+        @DecimalMax(value = "10.0", inclusive = true, message = "Los créditos máximos son 10.0")
+        BigDecimal calificacion
 ) {
 }
