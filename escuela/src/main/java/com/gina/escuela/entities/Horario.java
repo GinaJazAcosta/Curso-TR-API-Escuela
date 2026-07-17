@@ -42,7 +42,7 @@ public class Horario {
         this.horaFin = horaFin.trim();
     }
 
-    private void validarDatos(Grupo grupo, DiaSemana diaSemana, String horaInicio, String horaFin) {
+    public void validarDatos(Grupo grupo, DiaSemana diaSemana, String horaInicio, String horaFin) {
         if (grupo == null)
             throw new IllegalArgumentException("El grupo es requerido");
 
@@ -62,8 +62,15 @@ public class Horario {
                     "La hora de fin debe ser mayor que la hora de inicio"
             );
     }
+
     public void asignarDatos(Grupo grupo, DiaSemana diaSemana){
+        if (grupo == null)
+            throw new IllegalArgumentException("El grupo es requerido");
+        if (diaSemana == null)
+            throw new IllegalArgumentException("El día es requerido");
         this.grupo = grupo;
         this.diaSemana = diaSemana;
     }
+
+
 }

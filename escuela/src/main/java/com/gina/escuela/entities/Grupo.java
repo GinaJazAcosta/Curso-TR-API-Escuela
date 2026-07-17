@@ -73,8 +73,20 @@ public class Grupo {
         StringCustomUtils.ValidarTamanio(periodo, 1,20, "El periodo es requerido y debe tener entre 1 y 20 caracteres");
     }
     public void asignarDatos(Curso curso, Maestro maestro, Aula aula){
+        if(curso == null)
+            throw new IllegalArgumentException("El curso es requerido");
+        if(maestro == null)
+            throw new IllegalArgumentException("El maestro es requerido");
+        if(aula == null)
+            throw new IllegalArgumentException("El aula es requerido");
         this.curso = curso;
         this.maestro = maestro;
         this.aula = aula;
+    }
+    public boolean cambioEnDatos(Long idCurso, Long idMaestro, Long idAula, String periodo){
+        return this.curso.getId().equals(idCurso) ||
+                this.maestro.getId().equals(idMaestro) ||
+                this.aula.getId().equals(idAula) ||
+                this.periodo.equals(periodo);
     }
 }

@@ -31,12 +31,21 @@ public class Calificacion {
     @Column(name = "FECHA_REGISTRO")
     private LocalDate fechaRegistro;
 
-    public void actualizar( BigDecimal calificacion){
+    public void asignarCalificacion( BigDecimal calificacion){
         validarDatos(calificacion);
         this.calificacion = calificacion;
     }
     private void validarDatos(BigDecimal calificacion){
         if (calificacion==null || calificacion.compareTo(BigDecimal.ZERO)<0 || calificacion.compareTo(BigDecimal.TEN) > 0)
             throw new IllegalArgumentException("La calificacion es requerida y debe ser positiva");
+    }
+
+    public void actualizar(
+            Inscripcion inscripcion){
+
+        if (inscripcion == null)
+            throw new IllegalArgumentException("La inscripción es requerida");
+
+        this.inscripcion = inscripcion;
     }
 }

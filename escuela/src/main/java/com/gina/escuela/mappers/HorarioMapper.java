@@ -23,12 +23,20 @@ public class HorarioMapper implements CommonMapper<HorarioRequest, HorarioRespon
                 .horaFin(request.horaFin())
                 .build();
     }
+
     public Horario requestAEntidad(HorarioRequest request, Grupo grupo, DiaSemana diaSemana) {
         if (request == null) return null;
         Horario horario = requestAEntidad(request);
         horario.asignarDatos(grupo, diaSemana);
         return horario;
     }
+
+
+
+
+
+
+
 
     @Override
     public HorarioResponse entidadAResponse(Horario entidad) {

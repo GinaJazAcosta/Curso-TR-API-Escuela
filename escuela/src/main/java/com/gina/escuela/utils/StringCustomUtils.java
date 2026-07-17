@@ -46,6 +46,7 @@ public class StringCustomUtils {
         if (!hora.matches("^([01][0-9]|2[0-3]):[0-5][0-9]$"))
             throw new IllegalArgumentException(mensaje);
     }
+
     public static String localDateString(LocalDate fecha){
         return fecha == null ? null : fecha.format(formato);
     }

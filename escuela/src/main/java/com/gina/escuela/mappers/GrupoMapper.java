@@ -8,8 +8,6 @@ import com.gina.escuela.dto.grupo.GrupoResponse;
 import com.gina.escuela.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class GrupoMapper implements CommonMapper<GrupoRequest, GrupoResponse, Gr
     public GrupoResponse entidadAResponse(Grupo entidad) {
         if (entidad == null) return null;
         return new GrupoResponse(
-                entidad.getId (),
+                entidad.getId(),
                 entidadADatosCurso(entidad),
                 entidadADatosMaestro(entidad),
                 entidadADatosAula(entidad),

@@ -41,10 +41,20 @@ public class Inscripcion {
     @OneToOne(mappedBy = "inscripcion")
     private Calificacion calificacion;
 
-    private void validarDatos(Alumno alumno, Grupo grupo){
+    private void validarDatos(Alumno alumno, Grupo grupo, LocalDate fechaInscripcion){
         if (alumno == null)
             throw new IllegalArgumentException("El alumno es requerido");
         if (grupo == null)
             throw new IllegalArgumentException("El grupo es requerido");
+        if (fechaInscripcion == null)
+            throw new IllegalArgumentException("La fecha de inscripcion es requerida");
+    }
+
+    public void asignarDatos(Alumno alumno, Grupo grupo, LocalDate fechaInscripcion, Calificacion calificacion){
+        validarDatos(alumno, grupo, fechaInscripcion);
+        this.alumno = alumno;
+        this.grupo = grupo;
+        this.fechaInscripcion = fechaInscripcion;
+        this.calificacion = calificacion;
     }
 }
